@@ -4,9 +4,11 @@
 A web app to learn how to use API to make/use web apps
 """
 
-import json
-import pandas as pd
-from fastapi import FastAPI
+#Importing Packages
+import json #data type
+import pandas as pd #converting to dataframe
+from fastapi import FastAPI #API connecsh
+from records.records import Records #my package for GBIF
 
 # create the app as an instance of the fastAPI class
 app = FastAPI()
@@ -39,3 +41,10 @@ def iris(species=None):
     sdata = data.to_json(orient="index")
     jdata = json.loads(sdata)
     return jdata
+
+# create an endpoint to query GBIF from records package
+@app.get("/gbif")
+def gbif(genusname="Fagus", year="2000,2020"):
+    "returns a specific gbif query as JSON"
+    rec = Records(genusname=genusname, year=year)
+    return rec.get_single_batch()
