@@ -1,2 +1,2 @@
 # records
-GBIF querying package for given genus and timeframe
+GBIF querying package for a given genus and timeframe
